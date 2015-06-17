@@ -1,42 +1,42 @@
-/* globals ClientIntegrationTestFramework: true */
+/* globals ClientTestFramework: true */
 
 // We need to check the initial URL as early as possible
 // because the app can redirect and remove the query from the URL.
 // We store the decision to the local storage to persist it for reloads.
-var shouldRunClientIntegrationTests = false;
+var shouldRunClientTests = false;
 
 if (Meteor.isClient) {
-  if (localStorage.getItem('shouldRunClientIntegrationTests')) {
-    shouldRunClientIntegrationTests = true;
+  if (localStorage.getItem('shouldRunClientTests')) {
+    shouldRunClientTests = true;
   } else if (/jasmine=true/.test(document.location.href.split('?')[1])) {
-    shouldRunClientIntegrationTests = true;
-    localStorage.setItem('shouldRunClientIntegrationTests', true)
+    shouldRunClientTests = true;
+    localStorage.setItem('shouldRunClientTests', true)
   }
 }
 
-ClientIntegrationTestFramework = function (options) {
+ClientTestFramework = function (options) {
   options = options || {}
 
   _.defaults(options, {
-    name: 'jasmine-client-integration',
-    regex: '^tests/jasmine/client/integration/.+\\.(js|coffee|litcoffee|coffee\\.md)$',
+    name: 'jasmine-client',
+    regex: '^tests/jasmine/client/.+\\.(js|coffee|litcoffee|coffee\\.md)$',
     sampleTestGenerator: function () {
       return [
         {
-          path: 'jasmine/client/integration/sample/spec/PlayerSpec.js',
-          contents: Assets.getText('src/client/integration/sample-tests/sample/spec/PlayerSpec.js')
+          path: 'jasmine/client/sample/spec/PlayerSpec.js',
+          contents: Assets.getText('src/client/sample-tests/sample/spec/PlayerSpec.js')
         },
         {
-          path: 'jasmine/client/integration/sample/spec/SpecMatchers.js',
-          contents: Assets.getText('src/client/integration/sample-tests/sample/spec/SpecMatchers.js')
+          path: 'jasmine/client/sample/spec/SpecMatchers.js',
+          contents: Assets.getText('src/client/sample-tests/sample/spec/SpecMatchers.js')
         },
         {
-          path: 'jasmine/client/integration/sample/src/Player.js',
-          contents: Assets.getText('src/client/integration/sample-tests/sample/src/Player.js')
+          path: 'jasmine/client/sample/src/Player.js',
+          contents: Assets.getText('src/client/sample-tests/sample/src/Player.js')
         },
         {
-          path: 'jasmine/client/integration/sample/src/Song.js',
-          contents: Assets.getText('src/client/integration/sample-tests/sample/src/Song.js')
+          path: 'jasmine/client/sample/src/Song.js',
+          contents: Assets.getText('src/client/sample-tests/sample/src/Song.js')
         }
       ]
     },
@@ -50,9 +50,9 @@ ClientIntegrationTestFramework = function (options) {
   }
 }
 
-ClientIntegrationTestFramework.prototype = Object.create(JasmineTestFramework.prototype)
+ClientTestFramework.prototype = Object.create(JasmineTestFramework.prototype)
 
-_.extend(ClientIntegrationTestFramework.prototype, {
+_.extend(ClientTestFramework.prototype, {
 
   _setup: function () {
     this.jasmine = this.jasmineRequire.core(this.jasmineRequire)
@@ -71,7 +71,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
     } else {
       _.extend(mirrorOptions, {
         port: this._getCustomPort(),
-        testsPath: 'jasmine/client/integration'
+        testsPath: 'jasmine/client'
       })
 
       if (process.env.JASMINE_CLIENT_MIRROR_APP_PATH) {
@@ -97,7 +97,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
     Meteor.call('jasmine/environmentInfo', function(error, mirrorInfo) {
       if (error) {
         throw error
-      } else if (shouldRunClientIntegrationTests) {
+      } else if (shouldRunClientTests) {
         Meteor.setTimeout(function() {
           log.info('Running Jasmine tests')
 
@@ -191,7 +191,7 @@ _.extend(ClientIntegrationTestFramework.prototype, {
      * ## Reporters
      */
     var velocityReporter = new VelocityTestReporter({
-      mode: 'Client Integration',
+      mode: 'Client',
       framework: self.name,
       env: env,
       timer: new self.jasmine.Timer(),

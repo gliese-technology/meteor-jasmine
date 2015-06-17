@@ -78,9 +78,9 @@ Package.onUse(function (api) {
 
   // Client side integration testing
   api.addFiles([
-    'src/client/integration/ClientIntegrationTestFramework.js',
-    'src/client/integration/clientsideSetup.js',
-    'src/client/integration/assets/jasmine-jquery.js',
+    'src/client/ClientIntegrationTestFramework.js',
+    'src/client/clientsideSetup.js',
+    'src/client/assets/jasmine-jquery.js',
     'src/lib/mock.js'
   ], 'client')
 
@@ -95,7 +95,7 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'src/server/lib/runFileInContext.js',
-    'src/client/integration/ClientIntegrationTestFramework.js',
+    'src/client/ClientIntegrationTestFramework.js',
     'src/registerFrameworks.js'
   ], 'server')
 
@@ -105,10 +105,10 @@ Package.onUse(function (api) {
 
   api.addFiles([
     // Sample tests
-    'src/client/integration/sample-tests/sample/spec/PlayerSpec.js',
-    'src/client/integration/sample-tests/sample/spec/SpecMatchers.js',
-    'src/client/integration/sample-tests/sample/src/Player.js',
-    'src/client/integration/sample-tests/sample/src/Song.js',
+    'src/client/sample-tests/sample/spec/PlayerSpec.js',
+    'src/client/sample-tests/sample/spec/SpecMatchers.js',
+    'src/client/sample-tests/sample/src/Player.js',
+    'src/client/sample-tests/sample/src/Song.js',
     'src/server/integration/sample-tests/sample/spec/PlayerSpec.js',
     'src/server/integration/sample-tests/sample/spec/SpecMatchers.js',
     'src/server/integration/sample-tests/sample/src/Player.js',

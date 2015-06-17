@@ -1,4 +1,4 @@
-var testFramework = new ClientIntegrationTestFramework()
+var testFramework = new ClientTestFramework()
 Meteor.startup(function () {
   testFramework.runTests()
 })

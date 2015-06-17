@@ -1,18 +1,18 @@
 // We need to check the initial URL as early as possible
 // because the app can redirect and remove the query from the URL.
 // We store the decision to the local storage to persist it for reloads.
-var shouldRunClientIntegrationTests = false;
+var shouldRunClientTests = false;
 
 if (Meteor.isClient) {
-  if (localStorage.getItem('shouldRunClientIntegrationTests')) {
-    shouldRunClientIntegrationTests = true;
+  if (localStorage.getItem('shouldRunClientTests')) {
+    shouldRunClientTests = true;
   } else if (/jasmine=true/.test(document.location.href.split('?')[1])) {
-    shouldRunClientIntegrationTests = true;
-    localStorage.setItem('shouldRunClientIntegrationTests', true)
+    shouldRunClientTests = true;
+    localStorage.setItem('shouldRunClientTests', true)
   }
 }
 
-if (shouldRunClientIntegrationTests) {
+if (shouldRunClientTests) {
 
   /*!
   Jasmine-jQuery: a set of jQuery helpers for Jasmine tests.

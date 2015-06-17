@@ -44,18 +44,16 @@ if (process.env.VELOCITY !== '0') {
   }
 
 
-  // Client Integration
-  if (process.env.JASMINE_CLIENT_INTEGRATION !== '0') {
-    frameworks.clientIntegration = new ClientIntegrationTestFramework()
+  // Client tests
+  frameworks.client = new ClientTestFramework()
 
-    if (isMainApp()) {
-      frameworks.clientIntegration.registerWithVelocity()
-      Velocity.startup(function () {
-        // In test packages mode this does not really create a new mirror
-        // It just registers the app as mirror.
-        frameworks.clientIntegration.startMirror()
-      })
-    }
+  if (isMainApp()) {
+    frameworks.client.registerWithVelocity()
+    Velocity.startup(function () {
+      // In test packages mode this does not really create a new mirror
+      // It just registers the app as mirror.
+      frameworks.client.startMirror()
+    })
   }
 
 }
