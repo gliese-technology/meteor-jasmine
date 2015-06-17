@@ -69,14 +69,14 @@ Package.onUse(function (api) {
   // ----------------------------------------
 
   api.addFiles([
-    'src/server/integration/ServerIntegrationTestFramework.js'
+    'src/server/ServerTestFramework.js'
   ], 'server')
 
   // ----------------------------------------
   // Files that are needed in the mirror
   // ----------------------------------------
 
-  // Client side integration testing
+  // Client side testing
   api.addFiles([
     'src/client/ClientIntegrationTestFramework.js',
     'src/client/clientsideSetup.js',
@@ -109,10 +109,10 @@ Package.onUse(function (api) {
     'src/client/sample-tests/sample/spec/SpecMatchers.js',
     'src/client/sample-tests/sample/src/Player.js',
     'src/client/sample-tests/sample/src/Song.js',
-    'src/server/integration/sample-tests/sample/spec/PlayerSpec.js',
-    'src/server/integration/sample-tests/sample/spec/SpecMatchers.js',
-    'src/server/integration/sample-tests/sample/src/Player.js',
-    'src/server/integration/sample-tests/sample/src/Song.js',
+    'src/server/sample-tests/sample/spec/PlayerSpec.js',
+    'src/server/sample-tests/sample/spec/SpecMatchers.js',
+    'src/server/sample-tests/sample/src/Player.js',
+    'src/server/sample-tests/sample/src/Song.js',
     // Other
     '.npm/package/node_modules/component-mocker/index.js',
     'src/lib/mock.js',

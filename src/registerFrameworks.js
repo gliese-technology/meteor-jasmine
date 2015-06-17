@@ -20,27 +20,25 @@ shouldRunFramework = function (frameworkName) {
 
 if (process.env.VELOCITY !== '0') {
 
-  // Server Integration
-  if (process.env.JASMINE_SERVER_INTEGRATION !== '0') {
-    frameworks.serverIntegration = new ServerIntegrationTestFramework()
+  // Server tests
+  frameworks.server = new ServerTestFramework()
 
-    if (isMainApp()) {
-      frameworks.serverIntegration.registerWithVelocity()
-      if (!isTestPackagesMode()) {
-        Velocity.startup(function () {
-          frameworks.serverIntegration.startMirror()
-        })
-      }
-    }
-
-    if (shouldRunFramework('jasmine-server-integration')) {
-      Meteor.startup(function () {
-        // Queue our function after all other normal startup functions
-        Meteor.startup(function () {
-          frameworks.serverIntegration.start()
-        })
+  if (isMainApp()) {
+    frameworks.server.registerWithVelocity()
+    if (!isTestPackagesMode()) {
+      Velocity.startup(function () {
+        frameworks.server.startMirror()
       })
     }
+  }
+
+  if (shouldRunFramework(frameworks.server.name)) {
+    Meteor.startup(function () {
+      // Queue our function after all other normal startup functions
+      Meteor.startup(function () {
+        frameworks.server.start()
+      })
+    })
   }
 
 

@@ -1,4 +1,4 @@
-/* globals Jasmine: true, ServerIntegrationTestFramework: true */
+/* globals Jasmine: true, ServerTestFramework: true */
 
 /**
  * Design:
@@ -11,7 +11,7 @@ var ComponentMocker = Npm.require('component-mocker');
 var jasmineRequire = Npm.require('jasmine-core/lib/jasmine-core/jasmine.js');
 
 var showOnTestDeprecationInfo = _.once(function () {
-  log.info('You no longer need to wrap your server integration tests in Jasmine.onTest ;-)')
+  log.info('You no longer need to wrap your server tests in Jasmine.onTest ;-)')
 });
 
 Meteor.methods({
@@ -69,29 +69,29 @@ function executeOnTestFactory(funcName) {
 }
 
 
-ServerIntegrationTestFramework = function (options) {
+ServerTestFramework = function (options) {
   options = options || {}
 
   _.defaults(options, {
-    name: 'jasmine-server-integration',
-    regex: '^tests/jasmine/server/integration/.+\\.(js|coffee|litcoffee|coffee\\.md)$',
+    name: 'jasmine-server',
+    regex: '^tests/jasmine/server/.+\\.(js|coffee|litcoffee|coffee\\.md)$',
     sampleTestGenerator: function () {
       return [
         {
-          path: 'jasmine/server/integration/sample/spec/PlayerSpec.js',
-          contents: Assets.getText('src/server/integration/sample-tests/sample/spec/PlayerSpec.js')
+          path: 'jasmine/server/sample/spec/PlayerSpec.js',
+          contents: Assets.getText('src/server/sample-tests/sample/spec/PlayerSpec.js')
         },
         {
-          path: 'jasmine/server/integration/sample/spec/SpecMatchers.js',
-          contents: Assets.getText('src/server/integration/sample-tests/sample/spec/SpecMatchers.js')
+          path: 'jasmine/server/sample/spec/SpecMatchers.js',
+          contents: Assets.getText('src/server/sample-tests/sample/spec/SpecMatchers.js')
         },
         {
-          path: 'jasmine/server/integration/sample/src/Player.js',
-          contents: Assets.getText('src/server/integration/sample-tests/sample/src/Player.js')
+          path: 'jasmine/server/sample/src/Player.js',
+          contents: Assets.getText('src/server/sample-tests/sample/src/Player.js')
         },
         {
-          path: 'jasmine/server/integration/sample/src/Song.js',
-          contents: Assets.getText('src/server/integration/sample-tests/sample/src/Song.js')
+          path: 'jasmine/server/sample/src/Song.js',
+          contents: Assets.getText('src/server/sample-tests/sample/src/Song.js')
         }
       ]
     },
@@ -101,14 +101,14 @@ ServerIntegrationTestFramework = function (options) {
   JasmineTestFramework.call(this, options)
 }
 
-ServerIntegrationTestFramework.prototype = Object.create(JasmineTestFramework.prototype)
+ServerTestFramework.prototype = Object.create(JasmineTestFramework.prototype)
 
-_.extend(ServerIntegrationTestFramework.prototype, {
+_.extend(ServerTestFramework.prototype, {
 
   startMirror: function () {
     var mirrorOptions = {
       port: this._getCustomPort(),
-      testsPath: 'jasmine/server/integration'
+      testsPath: 'jasmine/server'
     }
 
     if (process.env.JASMINE_SERVER_MIRROR_APP_PATH) {
@@ -152,15 +152,15 @@ _.extend(ServerIntegrationTestFramework.prototype, {
   start: function () {
     var self = this;
 
-    log.debug('Starting Server Integration mode')
+    log.debug('Starting Server mode')
 
     this._connectToMainApp()
 
     if (isTestPackagesMode()) {
       self.runTests();
     } else {
-      var runServerIntegrationTests = _.once(function () {
-        serverIntegrationMirrorObserver.stop();
+      var runServerTests = _.once(function () {
+        serverMirrorObserver.stop();
         self.runTests();
       });
 
@@ -170,12 +170,12 @@ _.extend(ServerIntegrationTestFramework.prototype, {
       );
       this.ddpParentConnection.subscribe('VelocityMirrors');
 
-      var serverIntegrationMirrorObserver = VelocityMirrors.find({
+      var serverMirrorObserver = VelocityMirrors.find({
         framework: self.name,
         state: 'ready'
       }).observe({
-        added: runServerIntegrationTests,
-        changed: runServerIntegrationTests
+        added: runServerTests,
+        changed: runServerTests
       });
     }
   },
@@ -183,17 +183,17 @@ _.extend(ServerIntegrationTestFramework.prototype, {
   runTests: function () {
     var self = this
 
-    log.debug('Running Server Integration test mode')
+    log.debug('Running Server test mode')
 
     this.ddpParentConnection.call('velocity/reports/reset', {framework: self.name})
 
-    frameworks.serverIntegration.setupEnvironment()
+    frameworks.server.setupEnvironment()
 
     // Load specs that were wrapped with Jasmine.onTest
     self._runOnTestCallbacks()
 
     var velocityReporter = new VelocityTestReporter({
-      mode: 'Server Integration',
+      mode: 'Server',
       framework: self.name,
       env: self.env,
       onComplete: self._reportCompleted.bind(self),
