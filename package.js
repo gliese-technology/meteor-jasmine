@@ -78,7 +78,7 @@ Package.onUse(function (api) {
 
   // Client side testing
   api.addFiles([
-    'src/client/ClientIntegrationTestFramework.js',
+    'src/client/ClientTestFramework.js',
     'src/client/clientsideSetup.js',
     'src/client/assets/jasmine-jquery.js',
     'src/lib/mock.js'
@@ -95,7 +95,7 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'src/server/lib/runFileInContext.js',
-    'src/client/ClientIntegrationTestFramework.js',
+    'src/client/ClientTestFramework.js',
     'src/registerFrameworks.js'
   ], 'server')
 
