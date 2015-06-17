@@ -59,19 +59,6 @@ if (process.env.VELOCITY !== '0') {
   }
 
 
-  // Client Unit
-  if (process.env.JASMINE_CLIENT_UNIT !== '0' && !isTestPackagesMode()) {
-    frameworks.clientUnit = new ClientUnitTestFramework()
-
-    if (isMainApp()) {
-      frameworks.clientUnit.registerWithVelocity()
-      Velocity.startup(function () {
-        frameworks.clientUnit.start()
-      })
-    }
-  }
-
-
   // Server Unit
   if (process.env.JASMINE_SERVER_UNIT !== '0' && !isTestPackagesMode()) {
     frameworks.serverUnit = new ServerUnitTestFramework()

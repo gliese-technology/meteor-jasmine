@@ -103,7 +103,6 @@ Package.onUse(function (api) {
     'src/server/unit/included-packages.js',
     'src/server/unit/mock-generator.js',
     'src/server/unit/ServerUnitTestFramework.js',
-    'src/client/unit/ClientUnitTestFramework.js',
     'src/client/integration/ClientIntegrationTestFramework.js',
 
     'src/server/lib/get-files.js',
@@ -120,10 +119,6 @@ Package.onUse(function (api) {
     'src/client/integration/sample-tests/sample/spec/SpecMatchers.js',
     'src/client/integration/sample-tests/sample/src/Player.js',
     'src/client/integration/sample-tests/sample/src/Song.js',
-    'src/client/unit/sample-tests/sample/spec/PlayerSpec.js',
-    'src/client/unit/sample-tests/sample/spec/SpecMatchers.js',
-    'src/client/unit/sample-tests/sample/src/Player.js',
-    'src/client/unit/sample-tests/sample/src/Song.js',
     'src/server/integration/sample-tests/sample/spec/PlayerSpec.js',
     'src/server/integration/sample-tests/sample/spec/SpecMatchers.js',
     'src/server/integration/sample-tests/sample/src/Player.js',
@@ -138,13 +133,7 @@ Package.onUse(function (api) {
     'src/server/unit/metadata-reader.js.tpl',
     'src/lib/mock.js',
     'src/server/lib/contextSpec.js',
-    'src/lib/VelocityTestReporter.js',
-    'src/client/unit/assets/__meteor_runtime_config__.js',
-    'src/client/unit/assets/adapter.js',
-    'src/client/unit/assets/jasmine-jquery.js',
-    'src/client/unit/assets/mocks/packages/autoupdate.js',
-    'src/client/unit/assets/mocks/packages/reload.js',
-    'src/client/unit/assets/mocks/packages/meteorhacks_fast-render.js'
+    'src/lib/VelocityTestReporter.js'
   ], 'server', {isAsset: true})
 
 })
