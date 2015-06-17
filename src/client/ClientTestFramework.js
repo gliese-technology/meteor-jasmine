@@ -19,7 +19,7 @@ ClientTestFramework = function (options) {
 
   _.defaults(options, {
     name: 'jasmine-client',
-    regex: '^tests/jasmine/client/.+\\.(js|coffee|litcoffee|coffee\\.md)$',
+    regex: '^tests/jasmine/client/.+\\.(js|es6|jsx|coffee|litcoffee|coffee\\.md)$',
     sampleTestGenerator: function () {
       return [
         {
