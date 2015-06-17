@@ -95,17 +95,7 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'src/server/lib/runFileInContext.js',
-    'src/server/lib/coffee-require.js',
-    'src/server/lib/file-loader.js',
-    'src/server/lib/load-order-sort.js',
-    'src/server/lib/mock-loader.js',
-
-    'src/server/unit/included-packages.js',
-    'src/server/unit/mock-generator.js',
-    'src/server/unit/ServerUnitTestFramework.js',
     'src/client/integration/ClientIntegrationTestFramework.js',
-
-    'src/server/lib/get-files.js',
     'src/registerFrameworks.js'
   ], 'server')
 
@@ -123,16 +113,9 @@ Package.onUse(function (api) {
     'src/server/integration/sample-tests/sample/spec/SpecMatchers.js',
     'src/server/integration/sample-tests/sample/src/Player.js',
     'src/server/integration/sample-tests/sample/src/Song.js',
-    'src/server/unit/sample-tests/sample/spec/PlayerSpec.js',
-    'src/server/unit/sample-tests/sample/spec/SpecMatchers.js',
-    'src/server/unit/sample-tests/sample/src/Player.js',
-    'src/server/unit/sample-tests/sample/src/Song.js',
     // Other
     '.npm/package/node_modules/component-mocker/index.js',
-    'src/server/unit/package-stubs.js.tpl',
-    'src/server/unit/metadata-reader.js.tpl',
     'src/lib/mock.js',
-    'src/server/lib/contextSpec.js',
     'src/lib/VelocityTestReporter.js'
   ], 'server', {isAsset: true})
 
