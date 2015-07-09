@@ -74,7 +74,7 @@ ServerTestFramework = function (options) {
 
   _.defaults(options, {
     name: 'jasmine-server',
-    regex: '^tests/jasmine/server/.+\\.(js|es6|jsx|coffee|litcoffee|coffee\\.md)$',
+    regex: '^tests/jasmine(?!.*/client/).+\\.(js|es6|jsx|coffee|litcoffee|coffee\\.md)$',
     sampleTestGenerator: function () {
       return [
         {
@@ -108,7 +108,7 @@ _.extend(ServerTestFramework.prototype, {
   startMirror: function () {
     var mirrorOptions = {
       port: this._getCustomPort(),
-      testsPath: 'jasmine/server'
+      testsPath: 'jasmine'
     }
 
     if (process.env.JASMINE_SERVER_MIRROR_APP_PATH) {
